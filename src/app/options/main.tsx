@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { Main } from "~/components/common/main";
-import { Layout } from "~/components/layout/layout";
+import { Layout } from "~/components/layout";
 
 const Options = () => {
   return (

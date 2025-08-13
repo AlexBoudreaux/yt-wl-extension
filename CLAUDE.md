@@ -160,3 +160,7 @@ Component.displayName = "Component";
 - **YouTube DOM**: Be prepared for YouTube's dynamic DOM updates
 - **Permissions**: Already configured for YouTube access, clipboard, and storage
 - **Hot Reload**: Works automatically in dev mode - no manual reload needed
+
+## Claude Code Interaction Guidelines
+
+- If you need me to do something out of your range or scope please give me bullet points of what to do at the very end of your last message starting with "YOU NEED TO DO:"

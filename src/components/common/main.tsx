@@ -1,6 +1,6 @@
 import { browser } from "wxt/browser";
 
-import Logo from "~/assets/logo.svg?react";
+import Logo from "~/assets/icon.png";
 import { cn } from "~/lib/utils";
 
 interface MainProps {
@@ -16,22 +16,16 @@ export const Main = ({ className, filename }: MainProps) => {
         className,
       )}
     >
-      <Logo className="w-24 animate-pulse text-primary" />
+      <img src={Logo} alt="Logo" className="w-24 animate-pulse text-primary" />
       <p className="text-pretty text-center leading-tight">
-        {browser.i18n.getMessage("hello")}{" "}
-        <code className="inline-block rounded-sm bg-muted px-1.5 text-sm text-muted-foreground">
-          {filename}
-        </code>{" "}
-        👋
+        {browser.i18n.getMessage("extensionName")}
       </p>
-      <a
-        href="https://turbostarter.dev/docs/extension"
-        target="_blank"
-        rel="noreferrer"
-        className="cursor-pointer text-sm text-primary underline hover:no-underline"
-      >
-        {browser.i18n.getMessage("learnMore")}
-      </a>
+      <p className="text-sm text-center text-muted-foreground max-w-md">
+        {browser.i18n.getMessage("extensionDescription")}
+      </p>
+      <p className="text-xs text-center text-muted-foreground">
+        Navigate to YouTube's Watch Later playlist to use this extension
+      </p>
     </main>
   );
 };

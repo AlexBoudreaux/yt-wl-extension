@@ -1,198 +1,401 @@
-<div align="center">
- 
- <br />
-  <br />
+# Watchlater Transcripts
 
-<picture>
-    <source media="(prefers-color-scheme: dark)" width="700" srcset="https://github.com/user-attachments/assets/09cf4bfb-36a5-4eda-a892-4ba737d6a531" />
-    <source media="(prefers-color-scheme: light)" width="700" srcset="https://github.com/user-attachments/assets/7ccbabbf-5ddd-4cf0-9e44-cfbc5ba72e06" />
-    <img alt="Logo" width="700" src="https://github.com/user-attachments/assets/09cf4bfb-36a5-4eda-a892-4ba737d6a531" />
-</picture>
+A Chrome extension that transforms YouTube's Watch Later playlist into a powerful transcript extraction tool for research and note-taking.
 
-<br />
-<br />
-<br />
+## Table of Contents
 
-![](https://img.shields.io/badge/Bun-000000?style=flat-square&logo=bun&logoColor=white)
-![](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![](https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Development Setup](#development-setup)
+- [Project Structure](#project-structure)
+- [How It Works](#how-it-works)
+- [Testing](#testing)
+- [Building & Distribution](#building--distribution)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [Technical Architecture](#technical-architecture)
 
-![GitHub action badge](https://github.com/turbostarter/extro/actions/workflows/tests.yml/badge.svg)
-![GitHub action badge](https://github.com/turbostarter/extro/actions/workflows/publish.yml/badge.svg)
+## Features
 
-![GitHub license](https://img.shields.io/github/license/turbostarter/extro)
-<a href="https://discord.gg/KjpK2uk3JP" target="_blank"><img src="https://discord.com/api/guilds/1280456871693779006/widget.png"/></a>
+- **Bulk Transcript Extraction**: Extract transcripts from multiple YouTube videos at once
+- **Individual Video Selection**: Use Cmd+Click to select videos individually
+- **Smart Selection Management**: Select all or clear selections with keyboard shortcuts
+- **Markdown Output**: Export transcripts in clean, readable markdown format
+- **Copy to Clipboard**: Instantly copy extracted transcripts for use in other tools
+- **Download Support**: Save transcripts as .md files with automatic date naming
+- **Native YouTube Integration**: Seamlessly integrated into YouTube's Watch Later page
+- **Real-time Progress**: Visual progress indicators during extraction
+- **Error Handling**: Robust error handling with retry capabilities
+- **Accessibility**: Full keyboard navigation and screen reader support
 
-> This boilerplate
-> has [Plasmo version](https://github.com/turbostarter/extro/tree/plasmo)
+## Installation
 
-</div>
+### For Users
 
-<p align="center">
-    <a href="#features"><strong>Features</strong></a> · 
-    <a href="#tech-stack"><strong>Tech stack</strong></a> · 
-    <a href="#contributing"><strong>Contributing</strong></a> ·
-    <a href="#getting-started"><strong>Getting started</strong></a> ·
-    <a href="#community"><strong>Community</strong></a> ·
-    <a href="#star-history"><strong>Star History</strong></a>
-  </p>
+1. Download the latest release from the [releases page](../../releases)
+2. Extract the ZIP file
+3. Open Chrome and navigate to `chrome://extensions/`
+4. Enable "Developer mode" in the top right
+5. Click "Load unpacked" and select the extracted folder
+6. The extension will appear in your extensions list
 
+### For Developers
 
-  Everything you need to build a production ready browser extension, it's an **opinionated** stack based on learnings from building multiple browser extensions using the latest React framework. It's a starter kit with a focus on code reuse and best practices that will grow with your business.
+See [Development Setup](#development-setup) below.
 
-> [!NOTE]
-> This project is listed on [Awesome Open Source Boilerplates](https://github.com/EinGuterWaran/awesome-opensource-boilerplates) and [Awesome SaaS Boilerplates](https://github.com/smirnov-am/awesome-saas-boilerplates)
+## Usage
 
+### Basic Usage
 
-> [!TIP]
-> Sharing storage and authentication session between all pages
->
-> https://github.com/user-attachments/assets/970eddf8-5faf-42cc-89ed-54b7c7548bc8
+1. **Navigate to Watch Later**: Go to your [YouTube Watch Later playlist](https://www.youtube.com/playlist?list=WL)
+2. **Select Videos**: Use Cmd+Click (or Ctrl+Click on Windows) to select individual videos
+3. **Extract Transcripts**: Use the "Copy" or "Download" buttons in the header pill
+4. **Use Your Transcripts**: Paste into AI tools, note-taking apps, or research documents
 
+### Keyboard Shortcuts
 
-## Features ✨ <a name="features"></a>
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + Click` | Toggle individual video selection |
+| `Cmd/Ctrl + A` | Select all visible videos |
+| `Cmd/Ctrl + C` | Copy selected transcripts to clipboard |
+| `Cmd/Ctrl + S` | Download transcripts as .md file |
+| `Escape` | Clear all selections |
 
-- 🔒 Full type-safety with Typescript
-- 📄 All pages (background, popup, options etc.)
-- 📜 Content scripts (UI)
-- 🔐 Authentication (OAuth)
-- 💾 Storage
-- 💬 Messaging
-- 🔥 Hot reloading
-- 🚀 One-click publishing
-- 🌍 Internationalization
-- 📊 Analytics
-- ✨ Linting and formatting
-- 🧪 Unit tests
-- 🔄 CI/CD pipelines
-- ⚙️ Environment variables
-- 🎨 shadcn/ui compatible
-- 🔤 Custom fonts
-- 🤖 Native AI integration (experimental)
-- ✨ [ts-reset](https://github.com/mattpocock/ts-reset) for enhanced DX
-- 💳 Billing (coming soon)
+### Selection Behavior
 
-## Tech stack 🛠️ <a name="tech-stack"></a>
+- **Individual Selection**: Cmd+Click toggles video selection on/off
+- **Natural Text Selection**: Shift+Click works normally for selecting text
+- **Batch Operations**: Select multiple videos, then extract all at once
+- **Visual Feedback**: Selected videos are highlighted with YouTube's native styling
 
-| Tech                                           | Description                                                                   |
-| ---------------------------------------------- | ----------------------------------------------------------------------------- |
-| [TypeScript](https://www.typescriptlang.org/)  | Static type-checking programming language                                     |
-| [React](https://reactjs.org/)                  | Library for building user interfaces                                          |
-| [WXT](https://wxt.dev/)                        | Next-gen Web Extension Framework                                              |
-| [Supabase](https://supabase.com/)              | Open source Firebase alternative                                              |
-| [shadcn/ui](https://ui.shadcn.com/)            | Extendable component library                                                  |
-| [Tailwind](https://tailwindcss.com/)           | Utility-first CSS framework                                                   |
-| [OpenPanel](https://openpanel.dev/)            | Open source analytics                                                         |
-| [React Hook Form](https://react-hook-form.com) | Forms with easy-to-use validation                                             |
-| [Vite](https://vitejs.dev/)                    | Next generation frontend tool                                                 |
-| [Bun](https://bun.sh/)                         | Package manager and build tool                                                |
-| [Husky](https://github.com/typicode/husky)     | Git hooks                                                                     |
-| [Biome](https://biomejs.dev/)                  | Linting and formatting                                                        |
-
-## Contributing 🤝 <a name="contributing"></a>
-
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Getting started 🚀 <a name="getting-started"></a>
+## Development Setup
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/)
+- **Node.js** 20+ (LTS recommended)
+- **Bun** package manager (install with `curl -fsSL https://bun.sh/install | bash`)
+- **Chrome** browser for testing
 
-### Installation
+### Initial Setup
 
-1. Clone the repository
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd yt-wl-extension
+   ```
 
-```bash
-git clone git@github.com:turbostarter/extro.git
-```
+2. **Install dependencies**:
+   ```bash
+   bun install
+   ```
 
-2. Install dependencies
+3. **Start development server**:
+   ```bash
+   bun dev
+   ```
 
-```bash
-bun install
-```
+4. **Load extension in Chrome**:
+   - Open `chrome://extensions/`
+   - Enable "Developer mode"
+   - Click "Load unpacked"
+   - Select the `build/chrome-mv3` folder
 
-3. Copy `.env.example` to `.env` and update the variables
-
-```bash
-cp .env.example .env
-```
-
-### Development
-
-#### Chrome
-
-1. Run development server
-
-```bash
-bun dev:chrome
-```
-
-2. Open Chrome and go to `chrome://extensions`
-3. Check `Developer mode`
-4. Click `Load unpacked`
-5. Select the `build/chrome-mv3` directory at root
-
-#### Firefox
-
-1. Run development server
+### Development Commands
 
 ```bash
-bun dev:firefox
+# Development with hot reload
+bun dev           # Chrome development server
+bun dev:firefox   # Firefox development server
+
+# Type checking (ALWAYS run before commits)
+bun typecheck
+
+# Linting and formatting (ALWAYS run before commits)
+bun lint          # Check for issues
+bun lint:fix      # Fix issues automatically
+
+# Testing
+bun test          # Run unit tests
+
+# Building for production
+bun build         # Build for Chrome and Firefox
+bun build:chrome  # Chrome only
+bun build:firefox # Firefox only
 ```
 
-2. Open Firefox and go to `about:debugging#/runtime/this-firefox`
-3. Click `Load Temporary Add-on...`
-4. Select the `build/firefox-mv2/manifest.json` file at root
+### Development Workflow
 
-> [!NOTE]  
-> In Firefox you're adding a plugin in _temporary_ mode - that means it'll disappear after you close the browser.
+1. **Make Changes**: Edit files in the `src/` directory
+2. **Hot Reload**: Changes automatically reload in development
+3. **Type Check**: Run `bun typecheck` before committing
+4. **Lint Code**: Run `bun lint` to ensure code quality
+5. **Test Changes**: Verify functionality in the browser
+6. **Commit**: Use conventional commit format
 
-### Publishing
+## Project Structure
 
-#### Manual
+```
+yt-wl-extension/
+├── src/
+│   ├── app/
+│   │   ├── background/        # Service worker
+│   │   ├── content/           # Content scripts (main UI)
+│   │   ├── popup/             # Extension popup
+│   │   └── options/           # Settings page
+│   ├── components/
+│   │   ├── common/            # Shared components
+│   │   └── ui/                # shadcn/ui components
+│   ├── lib/
+│   │   ├── youtube-transcript.ts  # Core transcript extraction
+│   │   ├── video-selection.ts     # Video selection management
+│   │   ├── innertube-transcript.ts # YouTube API integration
+│   │   ├── logger.ts              # Logging utilities
+│   │   └── use-toast.tsx          # Toast notifications
+│   ├── assets/
+│   │   └── styles/
+│   └── types/
+│       └── index.ts           # TypeScript definitions
+├── public/
+│   ├── _locales/en/           # Internationalization
+│   └── icons/                 # Extension icons
+├── build/                     # Generated build files
+├── wxt.config.ts             # Extension configuration
+├── package.json
+├── tsconfig.json
+└── README.md
+```
 
-1. Run `bun run build` to build the extension for both Chrome and Firefox or `bun build:chrome` or `bun build:firefox` to build only for one of the browsers.
-2. Go to the `build` directory and upload the `.zip` files to the Chrome Web Store and Firefox Add-ons.
+### Key Files Explained
 
-#### CI/CD
+#### Core Functionality
+- **`src/app/content/index.tsx`**: Main UI component, video selection, transcript extraction
+- **`src/lib/youtube-transcript.ts`**: Transcript fetching, formatting, download logic
+- **`src/lib/video-selection.ts`**: Video selection state management
+- **`src/lib/innertube-transcript.ts`**: YouTube InnerTube API integration
 
-1. Obtain all the [required API keys](https://wxt.dev/guide/essentials/publishing.html#github-action) for your submission (check the [official token guide](https://github.com/PlasmoHQ/bms/blob/main/tokens.md) to learn more about the tokens required to submit)
-2. Set your API keys as [Github secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) under appropriate names
-3. Run `CI / Publish` workflow
+#### Configuration
+- **`wxt.config.ts`**: Extension manifest, permissions, build configuration
+- **`public/_locales/en/messages.json`**: Text content and internationalization
 
-### Pages
+#### Types
+- **`src/types/index.ts`**: TypeScript interfaces and types
 
-Extro ships with the following extension pages preconfigured:
+## How It Works
 
-- `background` - [background service worker](https://wxt.dev/guide/essentials/entrypoints.html#background)
-- `content` - [content scripts](https://wxt.dev/guide/essentials/content-scripts.html) that run in the context of web pages
-- `devtools` - [devtools](https://wxt.dev/guide/essentials/entrypoints.html#devtools) page with custom panels
-- `newtab` - [new tab](https://wxt.dev/guide/essentials/entrypoints.html#newtab) page
-- `options` - [options](https://wxt.dev/guide/essentials/entrypoints.html#options) page
-- `popup` - [popup](https://wxt.dev/guide/essentials/entrypoints.html#popup) window
-- `sidepanel` - [side panel](https://wxt.dev/guide/essentials/entrypoints.html#side-panel)
-- `tabs` - [unlisted](https://wxt.dev/guide/essentials/entrypoints.html#unlisted-pages) pages (custom pages delivered with the extension)
+### Technical Overview
 
-## Community 💬 <a name="community"></a>
+The extension uses three main approaches to extract transcripts:
 
-To chat with other community members, you can join the [Discord](https://discord.gg/KjpK2uk3JP) server.
-You can ask questions on that server, and you can also help others.
+1. **InnerTube API (Primary)**: Direct integration with YouTube's internal API
+2. **DOM Extraction (Fallback)**: Parsing YouTube's page data
+3. **Error Handling**: Comprehensive retry logic and user feedback
 
-Also, suggest new features or share any challenges you've faced while developing Chrome extensions!
+### InnerTube API Integration
 
-## Star History 🌟 <a name="star-history"></a>
+The core transcript extraction uses YouTube's internal InnerTube API:
 
-<a href="https://star-history.com/#turbostarter/extro&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=turbostarter/extro&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=turbostarter/extro&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=turbostarter/extro&type=Date" />
- </picture>
-</a>
+```typescript
+// Simplified version of the extraction process
+const fetcher = new InnerTubeTranscriptFetcher();
+const transcriptEntries = await fetcher.getTranscript(videoId);
+```
 
+### Video Selection System
+
+The extension implements a sophisticated video selection system:
+
+- **VideoSelectionManager**: Manages selection state
+- **Event Listeners**: Handle keyboard and mouse interactions
+- **Visual Styling**: Provides immediate feedback
+- **Persistence**: Maintains selections across DOM updates
+
+### Data Flow
+
+1. **Page Detection**: Monitor for YouTube Watch Later page
+2. **Video Scanning**: Extract video elements from DOM
+3. **Selection Management**: Handle user interactions
+4. **Transcript Extraction**: Fetch transcripts using InnerTube API
+5. **Output Formatting**: Convert to markdown format
+6. **User Actions**: Copy to clipboard or download as file
+
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+bun test
+
+# Run tests with coverage
+bun test --coverage
+
+# Run specific test file
+bun test src/lib/tests/youtube-transcript.test.ts
+```
+
+### Test Structure
+
+- **Unit Tests**: Test individual functions and utilities
+- **Integration Tests**: Test component interactions
+- **Manual Testing**: Browser testing procedures
+
+### Manual Testing Checklist
+
+1. **Extension Loading**: Loads without errors in Chrome
+2. **Page Detection**: Activates only on Watch Later playlist
+3. **Video Selection**: Individual and bulk selection works
+4. **Transcript Extraction**: Successfully extracts transcripts
+5. **Output Formats**: Markdown formatting is correct
+6. **Error Handling**: Graceful failure and retry functionality
+7. **UI Responsiveness**: Smooth interactions and feedback
+
+## Building & Distribution
+
+### Development Build
+
+```bash
+bun dev              # Hot reload development build
+```
+
+### Production Build
+
+```bash
+bun build            # Build for both Chrome and Firefox
+bun build:chrome     # Chrome-only build
+bun build:firefox    # Firefox-only build
+```
+
+### Build Output
+
+- **Chrome**: `build/chrome-mv3/`
+- **Firefox**: `build/firefox-mv2/`
+- **ZIP files**: Automatically created for distribution
+
+### Distribution Checklist
+
+1. **Version Bump**: Update version in `package.json`
+2. **Changelog**: Update with new features/fixes
+3. **Build**: Run `bun build` for production
+4. **Test**: Manual testing in fresh browser profile
+5. **Package**: ZIP files are created automatically
+6. **Upload**: Submit to Chrome Web Store / Firefox Add-ons
+
+## Troubleshooting
+
+### Common Issues
+
+#### Extension Not Loading
+- **Solution**: Check for TypeScript errors with `bun typecheck`
+- **Check**: Ensure all dependencies are installed with `bun install`
+
+#### No Videos Detected
+- **Solution**: Refresh the Watch Later page
+- **Check**: Ensure you're on the correct URL: `/playlist?list=WL`
+
+#### Transcript Extraction Fails
+- **Causes**: Video is private, transcript disabled, or network issues
+- **Solution**: Try again or check video availability
+
+#### Hot Reload Not Working
+- **Solution**: Restart development server with `bun dev`
+- **Check**: Browser console for WebSocket connection errors
+
+### Debug Information
+
+The extension provides comprehensive logging:
+
+```bash
+# Enable debug logs in browser console
+localStorage.setItem('yt-wl-debug', 'true')
+```
+
+### Performance Issues
+
+- **Large Playlists**: Extension handles 100+ videos efficiently
+- **Memory Usage**: Optimized for minimal memory footprint  
+- **API Rate Limiting**: Built-in concurrency limits prevent API errors
+
+## Contributing
+
+### Code Style
+
+- **TypeScript**: Strict mode enabled
+- **Formatting**: Automated with Biome
+- **Linting**: Enforced code quality standards
+- **Conventions**: Follow existing patterns
+
+### Contribution Guidelines
+
+1. **Fork Repository**: Create your own fork
+2. **Create Branch**: Use descriptive branch names
+3. **Make Changes**: Follow code style guidelines
+4. **Test Changes**: Run tests and manual verification
+5. **Submit PR**: Include detailed description
+
+### Commit Format
+
+Use conventional commit format:
+
+```bash
+feat: add markdown export functionality
+fix: resolve video selection edge case  
+docs: update installation instructions
+```
+
+## Technical Architecture
+
+### Framework and Tools
+
+- **WXT**: Modern extension framework with hot reload
+- **React 19**: UI components with functional patterns
+- **TypeScript**: Full type safety with strict mode
+- **Tailwind CSS 4**: Utility-first styling with shadcn/ui
+- **Biome**: Fast linting and formatting
+- **Bun**: Package manager and test runner
+
+### Chrome Extension Architecture
+
+- **Manifest V3**: Modern extension format
+- **Service Worker**: Background processing
+- **Content Scripts**: YouTube page integration
+- **Shadow DOM**: Isolated UI components
+
+### State Management
+
+- **React Context**: Global UI state
+- **Custom Managers**: Video selection state
+- **Local Storage**: User preferences (future)
+
+### API Integration
+
+The extension integrates with YouTube's internal InnerTube API for reliable transcript access:
+
+```typescript
+class InnerTubeTranscriptFetcher {
+  async getTranscript(videoId: string): Promise<TranscriptEntry[]> {
+    // Direct API integration - see implementation
+  }
+}
+```
+
+### Security Considerations
+
+- **Content Security Policy**: Strict CSP compliance
+- **Input Sanitization**: All user inputs are sanitized
+- **Minimal Permissions**: Only required YouTube access
+- **No External Servers**: Fully client-side operation
 
 ---
 
-Made with ❤️ by [Bartosz Zagrodzki](https://zagrodzki.me)
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Support
+
+For issues and questions:
+- **GitHub Issues**: [Create an issue](../../issues)
+- **Documentation**: This README file
+- **Code Examples**: Check the `src/` directory

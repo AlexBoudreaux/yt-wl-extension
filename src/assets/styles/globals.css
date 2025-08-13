@@ -51,6 +51,11 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  /* Ensure proper focus management for accessibility */
+  .yt-wl-selected {
+    scroll-margin-top: 80px;
+  }
 }
 
 @layer base {
@@ -154,5 +159,127 @@
     font-weight: 700;
     font-display: swap;
     src: url(/fonts/GeistMono-Bold.woff2) format("woff2");
+  }
+}
+
+/* YouTube Watch Later Extension Styles */
+@layer components {
+  .yt-wl-selected {
+    outline: 2px solid var(--yt-spec-call-to-action, #065fd4) !important;
+    outline-offset: -2px !important; /* Changed to negative offset to keep outline inside */
+    border-radius: 8px !important;
+    background-color: var(--yt-spec-brand-button-text, rgba(6, 95, 212, 0.1)) !important;
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 1px 2px var(--yt-spec-A2, rgba(0, 0, 0, 0.1)) !important;
+    box-sizing: border-box !important; /* Ensure outline stays within bounds */
+    margin: 2px 0 !important; /* Add small vertical margin to prevent overlap */
+  }
+
+  /* Dark theme support using YouTube's variables */
+  [dark] .yt-wl-selected,
+  .yt-wl-selected[dark] {
+    outline-color: var(--yt-spec-call-to-action, #4fc3f7) !important;
+    background-color: var(--yt-spec-brand-button-text, rgba(79, 195, 247, 0.15)) !important;
+  }
+
+  /* Ensure selection styling doesn't interfere with YouTube's existing styles */
+  ytd-playlist-video-renderer.yt-wl-selected {
+    position: relative !important;
+    z-index: 1 !important;
+    margin: 4px 0 !important; /* Increased margin to prevent overlap */
+    isolation: isolate !important; /* Create new stacking context */
+  }
+
+  /* Ensure non-selected videos maintain proper spacing */
+  ytd-playlist-video-renderer:not(.yt-wl-selected) {
+    margin: 2px 0 !important;
+  }
+
+  /* Header pill animations */
+  @keyframes slideInFromTop {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .yt-wl-header-pill {
+    animation: slideInFromTop 0.3s ease-out;
+  }
+
+  /* Pill button hover effects */
+  .yt-wl-pill-button:hover {
+    background-color: var(--yt-spec-badge-chip-background, rgba(0, 0, 0, 0.05)) !important;
+    transform: translateY(-1px);
+  }
+
+  /* Smooth hover transitions for selected videos */
+  ytd-playlist-video-renderer {
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out !important;
+  }
+
+  ytd-playlist-video-renderer:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px var(--yt-spec-A2, rgba(0, 0, 0, 0.1)) !important;
+  }
+
+  ytd-playlist-video-renderer.yt-wl-selected:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px var(--yt-spec-A2, rgba(0, 0, 0, 0.15)) !important;
+  }
+
+  /* Info dropdown styles */
+  .yt-wl-info-dropdown {
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--yt-spec-10-percent-layer) !important;
+  }
+
+  /* Keyboard shortcuts key styling */
+  .yt-wl-info-dropdown kbd {
+    background-color: var(--yt-spec-badge-chip-background, rgba(0, 0, 0, 0.05));
+    border: 1px solid var(--yt-spec-10-percent-layer, rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--yt-spec-text-primary);
+  }
+
+  /* Dark theme support for dropdown */
+  [dark] .yt-wl-info-dropdown kbd,
+  .yt-wl-info-dropdown[dark] kbd {
+    background-color: var(
+      --yt-spec-badge-chip-background,
+      rgba(255, 255, 255, 0.1)
+    );
+    border-color: var(--yt-spec-10-percent-layer, rgba(255, 255, 255, 0.15));
+  }
+
+  /* Dropdown animation */
+  @keyframes dropdownSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
